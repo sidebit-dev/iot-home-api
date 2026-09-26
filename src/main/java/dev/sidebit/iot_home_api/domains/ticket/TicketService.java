@@ -21,7 +21,7 @@ public class TicketService {
     private TicketMapper mapper;
 
 
-    public TicketDetalhes criar(TicketForm form) {
+    public TicketDetalhes create(TicketForm form) {
         var result = validator.validar(form, null);
 
         if (result.isInvalido()){

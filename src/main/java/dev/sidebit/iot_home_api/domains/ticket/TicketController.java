@@ -16,8 +16,8 @@ public class TicketController {
     private TicketService service;
 
     @PostMapping
-    public ResponseEntity<TicketDetalhes> criar(@RequestBody @Valid TicketForm novo){
-        TicketDetalhes detalhes = service.criar(novo);
+    public ResponseEntity<TicketDetalhes> create(@RequestBody @Valid TicketForm novo){
+        TicketDetalhes detalhes = service.create(novo);
         return ResponseEntity.status(HttpStatus.CREATED).body(detalhes);
     }
 
