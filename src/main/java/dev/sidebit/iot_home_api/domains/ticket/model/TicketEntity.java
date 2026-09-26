@@ -14,6 +14,7 @@ public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
     private Integer id;
 
     @Column(nullable = false, length = 100)
@@ -22,6 +23,7 @@ public class TicketEntity {
     @Column(nullable = false)
     private String descricao;
 
+    @Column
     private String address;
 
     @Enumerated(EnumType.STRING)
@@ -36,5 +38,6 @@ public class TicketEntity {
     @PrePersist
     public void prePersist(){
         setDataCadastro(LocalDateTime.now());
+        setActive(true);
     }
 }
