@@ -29,7 +29,7 @@ public class TicketEntity {
     @Enumerated(EnumType.STRING)
     private StatusTicket status;
 
-    @Column(options = "true, false")
+    @Column
     private Boolean ativo;
 
     @Column(name = "dt_cadastro")

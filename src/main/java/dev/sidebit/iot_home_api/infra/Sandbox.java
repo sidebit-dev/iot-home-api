@@ -18,8 +18,7 @@ public class Sandbox implements CommandLineRunner {
 
         ticket.setNome("Sistema de Proteção");
         ticket.setDescricao("Instalação residencial de 4 sensores de Infra-vermelhos");
-        ticket.setAddress("Rua Ladeira Geral s/n - Sapopemba - SP");
-//        ticket.setActive(true);
+        ticket.setEndereco("Rua Ladeira Geral s/n - Sapopemba - SP");
         ticket.setStatus(StatusTicket.ANDAMENTO);
 
         repository.save(ticket);

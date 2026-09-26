@@ -1,0 +1,15 @@
+2026-09-25 23:32:52.091288-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000a    alter table if exists tb_ticket \000a       add column ativo boolean [*]true, false"; SQL statement:
+
+    alter table if exists tb_ticket 
+       add column ativo boolean true, false [42000-240]
+2026-09-25 23:37:41.521285-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000a    alter table if exists tb_ticket \000a       add column ativo boolean [*]true, false"; SQL statement:
+
+    alter table if exists tb_ticket 
+       add column ativo boolean true, false [42000-240]
+2026-09-25 23:41:35.424253-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "\000a    alter table if exists tb_ticket \000a       add column ativo boolean [*]true, false"; SQL statement:
+
+    alter table if exists tb_ticket 
+       add column ativo boolean true, false [42000-240]
