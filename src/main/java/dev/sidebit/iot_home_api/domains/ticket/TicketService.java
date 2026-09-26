@@ -8,6 +8,7 @@ import dev.sidebit.iot_home_api.domains.ticket.mapper.TicketMapper;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TicketService {
@@ -34,5 +35,17 @@ public class TicketService {
     public TicketDetalhes findOne(Integer id){
         return repository.findById(id).map(mapper::toDetalhes)
                 .orElseThrow(()-> new RegistroNaoEncontradoException());
+    }
+
+    @Transactional
+    public void update(Integer id, TicketForm dadosAtualizacao) {
+        var entity = repository.findById(id).orElseThrow(()-> new RegistroNaoEncontradoException());
+        var result = validator.validar(dadosAtualizacao);
+        if (result.isInvalido()){
+            throw new ValidationException(result.getCamposInvalidos());
+        }
+        mapper.update(entity, dadosAtualizacao);
+
+//        repository.save(entity); Não precisa devido ao @Transactional
     }
 }

@@ -27,4 +27,9 @@ public class TicketController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping("{id}")
+    public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody TicketForm dadosAtual){
+        service.update(id, dadosAtual);
+        return ResponseEntity.noContent().build();
+    }
 }
