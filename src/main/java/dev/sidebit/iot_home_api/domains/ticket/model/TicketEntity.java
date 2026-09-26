@@ -24,13 +24,13 @@ public class TicketEntity {
     private String descricao;
 
     @Column
-    private String address;
+    private String endereco;
 
     @Enumerated(EnumType.STRING)
     private StatusTicket status;
 
     @Column(options = "true, false")
-    private Boolean active;
+    private Boolean ativo;
 
     @Column(name = "dt_cadastro")
     private LocalDateTime dataCadastro;
@@ -38,6 +38,6 @@ public class TicketEntity {
     @PrePersist
     public void prePersist(){
         setDataCadastro(LocalDateTime.now());
-        setActive(true);
+        setAtivo(true);
     }
 }

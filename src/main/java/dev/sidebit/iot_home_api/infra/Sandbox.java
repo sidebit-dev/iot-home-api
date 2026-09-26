@@ -27,6 +27,6 @@ public class Sandbox implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        salvarTicket();
+//        salvarTicket();
     }
 }

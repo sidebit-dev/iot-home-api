@@ -1,0 +1,12 @@
+package dev.sidebit.iot_home_api.domains.ticket;
+
+import dev.sidebit.iot_home_api.domains.ticket.dto.TicketForm;
+import org.springframework.stereotype.Component;
+
+@Component
+public class TicketValidator {
+
+    public void validar(TicketForm form){
+
+    }
+}
