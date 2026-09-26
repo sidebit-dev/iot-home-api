@@ -1,5 +1,6 @@
 package dev.sidebit.iot_home_api.domains.ticket;
 
+import dev.sidebit.iot_home_api.common.exceptions.RegistroNaoEncontradoException;
 import dev.sidebit.iot_home_api.common.exceptions.ValidationException;
 import dev.sidebit.iot_home_api.domains.ticket.dto.TicketDetalhes;
 import dev.sidebit.iot_home_api.domains.ticket.dto.TicketForm;
@@ -28,5 +29,10 @@ public class TicketService {
         TicketEntity entity = mapper.toEntity(form);
         repository.save(entity);
         return mapper.toDetalhes(entity);
+    }
+
+    public TicketDetalhes findOne(Integer id){
+        return repository.findById(id).map(mapper::toDetalhes)
+                .orElseThrow(()-> new RegistroNaoEncontradoException());
     }
 }

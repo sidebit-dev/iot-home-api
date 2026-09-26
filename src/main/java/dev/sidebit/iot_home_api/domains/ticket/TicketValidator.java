@@ -17,7 +17,7 @@ public class TicketValidator {
 
 //    Aqui é a nossa validação
     if(repository.findByNome(form.nome()).isPresent()){
-      result.add(new CampoInvalido("none","Já cadastrado."));
+      result.add(new CampoInvalido("nome","Já cadastrado."));
     }
     return result;
   }
