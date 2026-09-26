@@ -2,6 +2,7 @@ package dev.sidebit.iot_home_api.domains.ticket;
 
 import dev.sidebit.iot_home_api.domains.ticket.dto.TicketDetalhes;
 import dev.sidebit.iot_home_api.domains.ticket.dto.TicketForm;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class TicketController {
     private TicketService service;
 
     @PostMapping
-    public ResponseEntity<TicketDetalhes> criar(@RequestBody TicketForm novo){
+    public ResponseEntity<TicketDetalhes> criar(@RequestBody @Valid TicketForm novo){
         TicketDetalhes detalhes = service.criar(novo);
         return ResponseEntity.status(HttpStatus.CREATED).body(detalhes);
     }
