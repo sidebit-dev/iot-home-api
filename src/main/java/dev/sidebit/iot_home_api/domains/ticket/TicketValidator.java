@@ -12,11 +12,12 @@ public class TicketValidator {
   @Autowired
   private TicketRepository repository;
 
-  public ValidationResult validar(TicketForm form){
+  public ValidationResult validar(TicketForm form, Integer id){
     var result = ValidationResult.novo();
 
 //    Aqui é a nossa validação
-    if(repository.findByNome(form.nome()).isPresent()){
+    var isListaNaoVazia = !repository.findByNomeAndNotId(form.nome(), id).isEmpty();
+    if(isListaNaoVazia){
       result.add(new CampoInvalido("nome","Já cadastrado."));
     }
     return result;

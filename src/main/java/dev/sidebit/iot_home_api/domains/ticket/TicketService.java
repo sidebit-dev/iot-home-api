@@ -22,7 +22,7 @@ public class TicketService {
 
 
     public TicketDetalhes criar(TicketForm form) {
-        var result = validator.validar(form);
+        var result = validator.validar(form, null);
 
         if (result.isInvalido()){
            throw new ValidationException(result.getCamposInvalidos());
@@ -40,7 +40,7 @@ public class TicketService {
     @Transactional
     public void update(Integer id, TicketForm dadosAtualizacao) {
         var entity = repository.findById(id).orElseThrow(()-> new RegistroNaoEncontradoException());
-        var result = validator.validar(dadosAtualizacao);
+        var result = validator.validar(dadosAtualizacao, id);
         if (result.isInvalido()){
             throw new ValidationException(result.getCamposInvalidos());
         }
