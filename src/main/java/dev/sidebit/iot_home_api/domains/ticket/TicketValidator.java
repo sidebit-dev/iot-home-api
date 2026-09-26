@@ -7,8 +7,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class TicketValidator {
 
-    @Autowired
-    public void validar(TicketForm form){
-
-    }
+  public void validar(TicketForm form){}
 }

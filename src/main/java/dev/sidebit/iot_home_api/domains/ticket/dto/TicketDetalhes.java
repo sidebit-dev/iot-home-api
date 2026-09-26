@@ -4,7 +4,7 @@ import dev.sidebit.iot_home_api.domains.ticket.model.StatusTicket;
 
 public record TicketDetalhes(
         Integer id,
-        String name,
+        String nome,
         String descricao,
         String endereco,
         StatusTicket status,
