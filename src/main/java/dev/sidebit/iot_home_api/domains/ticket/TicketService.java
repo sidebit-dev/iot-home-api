@@ -7,6 +7,8 @@ import dev.sidebit.iot_home_api.domains.ticket.dto.TicketForm;
 import dev.sidebit.iot_home_api.domains.ticket.mapper.TicketMapper;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,5 +49,9 @@ public class TicketService {
         mapper.update(entity, dadosAtualizacao);
 
 //        repository.save(entity); Não precisa devido ao @Transactional
+    }
+
+    public Page<TicketDetalhes> findAll(PageRequest pageRequest){
+        return repository.findAll(pageRequest).map(mapper::toDetalhes);
     }
 }
