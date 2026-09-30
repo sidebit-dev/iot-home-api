@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("tickets")
-@CrossOrigin
+@CrossOrigin("*")
 public class TicketController {
 
     @Autowired
