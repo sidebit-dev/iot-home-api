@@ -54,4 +54,14 @@ public class TicketService {
     public Page<TicketDetalhes> findAll(PageRequest pageRequest){
         return repository.findAll(pageRequest).map(mapper::toDetalhes);
     }
+
+    @Transactional
+    public void ativarDesativar(Integer id){
+        var ticket = repository.findById(id)
+                .orElseThrow(RegistroNaoEncontradoException::new);
+
+        ticket.setAtivo(!ticket.getAtivo());
+//        Opcional devido ao @Transactional
+        repository.save(ticket);
+    }
 }

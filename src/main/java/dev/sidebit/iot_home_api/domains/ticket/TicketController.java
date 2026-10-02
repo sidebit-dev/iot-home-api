@@ -45,4 +45,10 @@ public class TicketController {
         var pageRequest = PageRequest.of(page, size);
         return service.findAll(pageRequest);
     }
+
+    @PatchMapping("{id}/ativo")
+    public ResponseEntity<Void> ativaDerivativa(@PathVariable Integer id){
+        service.ativarDesativar(id);
+        return ResponseEntity.noContent().build();
+    }
 }
