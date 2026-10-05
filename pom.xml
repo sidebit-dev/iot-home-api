@@ -11,8 +11,8 @@
 	<groupId>dev.sidebit</groupId>
 	<artifactId>iot-home-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name/>
-	<description/>
+	<name>IOTHome - API</name>
+	<description>Real-time residential perimeter protection system</description>
 	<url/>
 	<licenses>
 		<license/>
