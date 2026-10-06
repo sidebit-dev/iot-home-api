@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("sensors")
 @CrossOrigin("*")
@@ -21,6 +20,7 @@ public class SensorController {
 
     @PostMapping
     public ResponseEntity<SensorDetalhes> create(@RequestBody @Valid SensorForm novo){
+        System.out.println(novo);
         SensorDetalhes detalhes = service.create(novo);
         return ResponseEntity.status(HttpStatus.CREATED).body(detalhes);
     }

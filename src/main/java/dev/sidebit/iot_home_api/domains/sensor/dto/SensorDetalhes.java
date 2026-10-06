@@ -7,5 +7,7 @@ public record SensorDetalhes(
         String nome,
         String descricao,
         StatusSensor status,
-        Boolean ativo) {
+        Boolean ativo,
+        Integer ticket_id
+        ) {
 }

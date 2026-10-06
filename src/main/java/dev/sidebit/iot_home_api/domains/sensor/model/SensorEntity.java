@@ -1,5 +1,6 @@
 package dev.sidebit.iot_home_api.domains.sensor.model;
 
+import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,10 @@ public class SensorEntity {
 
     @Column(name = "dt_cadastro")
     private LocalDateTime dataCadastro;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private TicketEntity ticket;
 
     @PrePersist
     public void prePersist(){

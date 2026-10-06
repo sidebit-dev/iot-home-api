@@ -9,5 +9,7 @@ public record SensorForm(
     String nome,
     @NotNull(message = "Campo obrigatório.")
     String descricao,
-    StatusSensor status) {
+    StatusSensor status,
+    Integer ticket_id
+) {
 }

@@ -6,6 +6,8 @@ import dev.sidebit.iot_home_api.domains.sensor.dto.SensorDetalhes;
 import dev.sidebit.iot_home_api.domains.sensor.dto.SensorForm;
 import dev.sidebit.iot_home_api.domains.sensor.mapper.SensorMapper;
 import dev.sidebit.iot_home_api.domains.sensor.model.SensorEntity;
+import dev.sidebit.iot_home_api.domains.ticket.TicketRepository;
+import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,16 +22,21 @@ public class SensorService {
     @Autowired
     private SensorRepository repository;
     @Autowired
+    private TicketRepository ticketRepository;
+    @Autowired
     private SensorMapper mapper;
 
-
+    @Transactional
     public SensorDetalhes create(SensorForm form) {
-        var result = validator.validar(form, null);
 
-        if (result.isInvalido()){
-           throw new ValidationException(result.getCamposInvalidos());
-        }
-        SensorEntity entity = mapper.toEntity(form);
+        TicketEntity ticket = ticketRepository.findById(form.ticket_id()).orElseThrow(() -> new RuntimeException("Ticket não encontrado: " + form.ticket_id()));
+
+        SensorEntity entity = new SensorEntity();
+        entity.setNome(form.nome());
+        entity.setDescricao(form.descricao());
+        entity.setStatus(form.status());
+        entity.setTicket(ticket);
+
         repository.save(entity);
         return mapper.toDetalhes(entity);
     }
@@ -47,7 +54,6 @@ public class SensorService {
             throw new ValidationException(result.getCamposInvalidos());
         }
         mapper.update(entity, dadosAtualizacao);
-
 //        repository.save(entity); Não precisa devido ao @Transactional
     }
 
