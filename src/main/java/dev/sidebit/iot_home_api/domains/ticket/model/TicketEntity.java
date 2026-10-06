@@ -8,11 +8,10 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_ticket")
-@Getter
-@Setter
 public class TicketEntity {
 
     @Id
@@ -45,5 +44,108 @@ public class TicketEntity {
     public void prePersist(){
         setDataCadastro(LocalDateTime.now());
         setAtivo(true);
+    }
+
+    public TicketEntity() {
+    }
+
+    public TicketEntity(Integer id, String nome, String descricao, String endereco, StatusTicket status, Boolean ativo, LocalDateTime dataCadastro) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.endereco = endereco;
+        this.status = status;
+        this.ativo = ativo;
+        this.dataCadastro = dataCadastro;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public StatusTicket getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTicket status) {
+        this.status = status;
+    }
+
+    public Boolean getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(Boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public LocalDateTime getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public List<SensorEntity> getSensors() {
+        return sensors;
+    }
+
+    public void setSensors(List<SensorEntity> sensors) {
+        this.sensors = sensors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        TicketEntity that = (TicketEntity) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "TicketEntity{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", descricao='" + descricao + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", status=" + status +
+                ", ativo=" + ativo +
+                ", dataCadastro=" + dataCadastro +
+                ", sensors=" + sensors +
+                '}';
     }
 }
