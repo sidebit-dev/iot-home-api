@@ -6,5 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public record EventForm(
 
     StatusEvent status,
-    String description){
+    String description,
+    Integer sensor_id
+    ){
 }

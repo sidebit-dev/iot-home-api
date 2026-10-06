@@ -1,11 +1,14 @@
 package dev.sidebit.iot_home_api.domains.sensor.model;
 
+import dev.sidebit.iot_home_api.domains.event.model.EventEntity;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_sensor")
@@ -36,6 +39,9 @@ public class SensorEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ticket_id", nullable = false)
     private TicketEntity ticket;
+
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<EventEntity> events = new ArrayList<>();
 
     @PrePersist
     public void prePersist(){

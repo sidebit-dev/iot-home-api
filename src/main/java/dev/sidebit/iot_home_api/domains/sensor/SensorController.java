@@ -20,7 +20,7 @@ public class SensorController {
 
     @PostMapping
     public ResponseEntity<SensorDetalhes> create(@RequestBody @Valid SensorForm novo){
-        System.out.println(novo);
+//        System.out.println(novo);
         SensorDetalhes detalhes = service.create(novo);
         return ResponseEntity.status(HttpStatus.CREATED).body(detalhes);
     }

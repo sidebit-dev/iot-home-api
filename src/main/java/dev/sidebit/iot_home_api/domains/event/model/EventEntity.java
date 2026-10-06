@@ -1,5 +1,6 @@
 package dev.sidebit.iot_home_api.domains.event.model;
 
+import dev.sidebit.iot_home_api.domains.sensor.model.SensorEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,10 @@ public class EventEntity {
 
     @Column(name = "dt_evento")
     private LocalDateTime dataEvento;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "sensor_id", nullable = false)
+    private SensorEntity sensor;
 
     @PrePersist
     public void prePersist(){

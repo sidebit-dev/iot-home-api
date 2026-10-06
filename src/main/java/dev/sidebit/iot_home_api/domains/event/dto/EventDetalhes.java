@@ -5,5 +5,7 @@ import dev.sidebit.iot_home_api.domains.event.model.StatusEvent;
 public record EventDetalhes(
         Integer id,
         StatusEvent status,
-        String description){
+        String description,
+        Integer sensor_id
+        ){
 }
