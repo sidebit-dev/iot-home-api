@@ -31,10 +31,13 @@ public class SensorService {
 
         TicketEntity ticket = ticketRepository.findById(form.ticket_id()).orElseThrow(() -> new RuntimeException("Ticket não encontrado: " + form.ticket_id()));
 
-        SensorEntity entity = new SensorEntity();
-        entity.setNome(form.nome());
-        entity.setDescricao(form.descricao());
-        entity.setStatus(form.status());
+//        SensorEntity entity = new SensorEntity();
+//        entity.setNome(form.nome());
+//        entity.setDescricao(form.descricao());
+//        entity.setStatus(form.status());
+//        entity.setTicket(ticket);
+
+        SensorEntity entity = mapper.toEntity(form);
         entity.setTicket(ticket);
 
         repository.save(entity);

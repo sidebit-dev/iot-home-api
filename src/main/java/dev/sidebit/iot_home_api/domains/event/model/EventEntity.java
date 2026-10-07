@@ -9,14 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "sensor_log")
-//@Getter
-//@Setter
-//@Data
-//@ToString
-//@EqualsAndHashCode
-//@RequiredArgsConstructor
-//@NoArgsConstructor
-//@AllArgsConstructor
+
 public class EventEntity {
 
     @Id
@@ -43,14 +36,6 @@ public class EventEntity {
     }
 
     public EventEntity() {
-    }
-
-    public EventEntity(Integer id, StatusEvent status, String description, LocalDateTime dataEvento, SensorEntity sensor) {
-        this.id = id;
-        this.status = status;
-        this.description = description;
-        this.dataEvento = dataEvento;
-        this.sensor = sensor;
     }
 
     public Integer getId() {

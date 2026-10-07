@@ -24,11 +24,11 @@ public class TicketService {
 
 
     public TicketDetalhes create(TicketForm form) {
-        var result = validator.validar(form, null);
-
-        if (result.isInvalido()){
-           throw new ValidationException(result.getCamposInvalidos());
-        }
+//        var result = validator.validar(form, null);
+//
+//        if (result.isInvalido()){
+//           throw new ValidationException(result.getCamposInvalidos());
+//        }
         TicketEntity entity = mapper.toEntity(form);
         repository.save(entity);
         return mapper.toDetalhes(entity);
@@ -42,10 +42,10 @@ public class TicketService {
     @Transactional
     public void update(Integer id, TicketForm dadosAtualizacao) {
         var entity = repository.findById(id).orElseThrow(()-> new RegistroNaoEncontradoException());
-        var result = validator.validar(dadosAtualizacao, id);
-        if (result.isInvalido()){
-            throw new ValidationException(result.getCamposInvalidos());
-        }
+//        var result = validator.validar(dadosAtualizacao, id);
+//        if (result.isInvalido()){
+//            throw new ValidationException(result.getCamposInvalidos());
+//        }
         mapper.update(entity, dadosAtualizacao);
 
 //        repository.save(entity); Não precisa devido ao @Transactional

@@ -3,9 +3,6 @@ package dev.sidebit.iot_home_api.domains.sensor.model;
 import dev.sidebit.iot_home_api.domains.event.model.EventEntity;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,16 +47,6 @@ public class SensorEntity {
 
     public SensorEntity() {
     }
-
-    public SensorEntity(Integer id, String nome, String descricao, StatusSensor status, Boolean ativo, LocalDateTime dataCadastro, TicketEntity ticket) {
-        this.id = id;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.status = status;
-        this.ativo = ativo;
-        this.dataCadastro = dataCadastro;
-        this.ticket = ticket;
-      }
 
     public Integer getId() {
         return id;
