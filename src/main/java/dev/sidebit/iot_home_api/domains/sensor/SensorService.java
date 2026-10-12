@@ -52,7 +52,7 @@ public class SensorService {
     @Transactional
     public void update(Integer id, SensorForm dadosAtualizacao) {
         var entity = repository.findById(id).orElseThrow(()-> new RegistroNaoEncontradoException());
-        var result = validator.validar(dadosAtualizacao, id);
+        var result = validator.validar(dadosAtualizacao, entity.getId());
         if (result.isInvalido()){
             throw new ValidationException(result.getCamposInvalidos());
         }

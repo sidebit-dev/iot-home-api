@@ -12,14 +12,19 @@ public class SensorValidator {
   @Autowired
   private SensorRepository repository;
 
-  public ValidationResult validar(SensorForm form, Integer id){
+  public ValidationResult validar(SensorForm form, Integer ticket){
     var result = ValidationResult.novo();
 
 //    Aqui é a nossa validação
-    var isListaNaoVazia = !repository.findByNomeAndNotId(form.nome(), id).isEmpty();
-    if(isListaNaoVazia){
-      result.add(new CampoInvalido("nome","Já cadastrado."));
-    }
+//    var isListaNaoVazia = !repository.findByNomeAndNotId(form.nome(), id).isEmpty();
+//    if(isListaNaoVazia){
+//      result.add(new CampoInvalido("nome","Já cadastrado."));
+//    }
+//    if(ticket == null){
+//      result.add(new CampoInvalido("ticket_id", "Ticket não dncontrado."));
+//    if (Boolean.FALSE.equals(ticket.getAtivo())) {
+//      result.add(new CampoInvalido("ticket_id", "Ticket Inativo."));
+//    }
     return result;
   }
 }

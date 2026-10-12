@@ -12,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class TicketService {
 
@@ -63,5 +65,11 @@ public class TicketService {
         ticket.setAtivo(!ticket.getAtivo());
 //        Opcional devido ao @Transactional
         repository.save(ticket);
+    }
+
+    public List<TicketDetalhes> listarAtivos() {
+        return repository.findByAtivoTrue()
+                .stream().map(mapper::toDetalhes)
+                .toList();
     }
 }

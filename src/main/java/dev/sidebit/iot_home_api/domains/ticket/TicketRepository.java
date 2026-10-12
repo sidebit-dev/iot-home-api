@@ -1,5 +1,6 @@
 package dev.sidebit.iot_home_api.domains.ticket;
 
+import dev.sidebit.iot_home_api.domains.ticket.dto.TicketDetalhes;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,4 +21,6 @@ public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
                 and c.nome = :nome
             """)
     List<TicketEntity> findByNomeAndNotId(@Param("nome") String nome, @Param("id") Integer id);
+
+    List<TicketEntity> findByAtivoTrue();
 }

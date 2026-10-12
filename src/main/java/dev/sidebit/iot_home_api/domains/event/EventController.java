@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("ewent")
-@CrossOrigin("*")
+//@CrossOrigin("*")
 public class EventController {
 
     @Autowired
