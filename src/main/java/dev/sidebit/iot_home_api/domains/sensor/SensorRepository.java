@@ -2,13 +2,16 @@ package dev.sidebit.iot_home_api.domains.sensor;
 
 import dev.sidebit.iot_home_api.domains.sensor.model.SensorEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface SensorRepository extends JpaRepository<SensorEntity, Integer> {
+public interface SensorRepository
+        extends JpaRepository<SensorEntity, Integer>,
+        JpaSpecificationExecutor<SensorEntity> {
 
     Optional<SensorEntity> findByNome(String nome);
 //    Pode existir ou não algum Sensor cadastrado com o mesmo nome

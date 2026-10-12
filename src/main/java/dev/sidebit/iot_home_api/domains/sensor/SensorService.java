@@ -6,13 +6,18 @@ import dev.sidebit.iot_home_api.domains.sensor.dto.SensorDetalhes;
 import dev.sidebit.iot_home_api.domains.sensor.dto.SensorForm;
 import dev.sidebit.iot_home_api.domains.sensor.mapper.SensorMapper;
 import dev.sidebit.iot_home_api.domains.sensor.model.SensorEntity;
+import dev.sidebit.iot_home_api.domains.sensor.model.StatusSensor;
 import dev.sidebit.iot_home_api.domains.ticket.TicketRepository;
 import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static dev.sidebit.iot_home_api.domains.sensor.SensorSpecification.statusEqual;
+import static dev.sidebit.iot_home_api.domains.sensor.SensorSpecification.ticketEqual;
 
 @Service
 public class SensorService {
@@ -72,5 +77,24 @@ public class SensorService {
         ticket.setAtivo(!ticket.getAtivo());
 //        Opcional devido ao @Transactional
         repository.save(ticket);
+    }
+
+    public Page<SensorDetalhes> listar(PageRequest pageRequest, StatusSensor status, Integer ticket_id){
+
+        // select * from SensorEntity where 1 = 1
+        Specification<SensorEntity> spec = Specification.unrestricted();
+
+        if(status != null){
+            // and status = :status
+            spec = spec.and(statusEqual(status));
+        }
+
+        if(ticket_id != null){
+            spec = spec.and(ticketEqual(ticket_id));
+        }
+
+        var resultado = repository.findAll(spec, pageRequest);
+
+        return resultado.map(mapper::toDetalhes);
     }
 }
