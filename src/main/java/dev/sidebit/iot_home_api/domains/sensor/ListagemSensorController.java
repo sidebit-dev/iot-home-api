@@ -2,22 +2,27 @@ package dev.sidebit.iot_home_api.domains.sensor;
 
 import dev.sidebit.iot_home_api.domains.sensor.dto.SensorDetalhes;
 import dev.sidebit.iot_home_api.domains.sensor.model.StatusSensor;
+import dev.sidebit.iot_home_api.domains.ticket.TicketService;
+import dev.sidebit.iot_home_api.domains.ticket.dto.TicketDetalhes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("sensorS")
+@RequestMapping("sensors-filtro")
 public class ListagemSensorController {
 
     @Autowired
     private SensorService service;
+
+    @Autowired
+    private TicketService ticketService;
 
     @GetMapping
     public Page<SensorDetalhes> listar(
@@ -31,6 +36,18 @@ public class ListagemSensorController {
 
         return service.listar(pageRequest, statusSelecionado, ticket_id);
     }
+
+    @GetMapping("tickets-listagem")
+    public List<TicketDetalhes> listarTodos(){
+        return ticketService.listarTodos();
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Integer id){
+        service.deletar(id);
+    }
+
 
     private StatusSensor parseStatus(String status) {
         if(status == null || status.isBlank()){

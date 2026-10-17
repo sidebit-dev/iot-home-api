@@ -97,4 +97,10 @@ public class SensorService {
 
         return resultado.map(mapper::toDetalhes);
     }
+
+    public void deletar(Integer id){
+        var sensor = repository.findById(id)
+                .orElseThrow(RegistroNaoEncontradoException::new);
+        repository.delete(sensor);
+    }
 }

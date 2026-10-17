@@ -9,6 +9,7 @@ import dev.sidebit.iot_home_api.domains.ticket.model.TicketEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -69,6 +70,12 @@ public class TicketService {
 
     public List<TicketDetalhes> listarAtivos() {
         return repository.findByAtivoTrue()
+                .stream().map(mapper::toDetalhes)
+                .toList();
+    }
+
+    public List<TicketDetalhes> listarTodos() {
+        return repository.findAll(Sort.by("nome"))
                 .stream().map(mapper::toDetalhes)
                 .toList();
     }
