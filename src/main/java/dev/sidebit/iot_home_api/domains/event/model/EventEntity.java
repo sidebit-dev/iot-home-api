@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "sensor_log")
-
+@Table(name = "tb_event")
 public class EventEntity {
 
     @Id

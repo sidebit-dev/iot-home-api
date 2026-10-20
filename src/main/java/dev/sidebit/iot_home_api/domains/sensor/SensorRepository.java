@@ -23,7 +23,6 @@ public interface SensorRepository
             @Param("status") StatusSensor status
     );
 
-
     Optional<SensorEntity> findByNome(String nome);
 //    Pode existir ou não algum Sensor cadastrado com o mesmo nome
 
@@ -45,5 +44,7 @@ public interface SensorRepository
     List<Object[]> ticketsAtuados(
             @Param("status") StatusSensor status
     );
+
+
 
 }

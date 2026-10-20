@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("ewent")
@@ -44,5 +46,17 @@ public class EventController {
     {
         var pageRequest = PageRequest.of(page, size);
         return service.findAll(pageRequest);
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletar(@PathVariable Integer id){
+        service.deletar(id);
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Void> deletarTodos(@RequestBody List<Integer> ids){
+        service.deletarTodos(ids);
+        return ResponseEntity.noContent().build();
     }
 }

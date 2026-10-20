@@ -7,11 +7,15 @@ import dev.sidebit.iot_home_api.domains.event.mapper.EventMapper;
 import dev.sidebit.iot_home_api.domains.event.model.EventEntity;
 import dev.sidebit.iot_home_api.domains.sensor.SensorRepository;
 import dev.sidebit.iot_home_api.domains.sensor.model.SensorEntity;
+import dev.sidebit.iot_home_api.domains.sensor.model.StatusSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EventService {
@@ -25,13 +29,14 @@ public class EventService {
 
     @Transactional
     public EventDetalhes create(EventForm form) {
-
+        Integer sensorId =  form.sensor_id();
+        String status = form.status().toString();
         SensorEntity sensor = sensorRepository.findById(form.sensor_id()).orElseThrow(() -> new RuntimeException("Sensor não encontrado: " + form.sensor_id()));
         EventEntity entity = new EventEntity();
         entity.setStatus(form.status());
         entity.setDescription(form.description());
         entity.setSensor(sensor);
-
+        statusSensor(sensorId, status);
         repository.save(entity);
         return mapper.toDetalhes(entity);
     }
@@ -46,11 +51,35 @@ public class EventService {
         var entity = repository.findById(id).orElseThrow(()-> new RegistroNaoEncontradoException());
 
         mapper.update(entity, dadosAtualizacao);
-
-//        repository.save(entity); Não precisa devido ao @Transactional
+//      repository.save(entity); Não precisa devido ao @Transactional
     }
 
     public Page<EventDetalhes> findAll(PageRequest pageRequest){
         return repository.findAll(pageRequest).map(mapper::toDetalhes);
+    }
+
+    public void deletar(Integer id){
+        var event = repository.findById(id)
+                .orElseThrow(RegistroNaoEncontradoException::new);
+        repository.delete(event);
+    }
+
+    public void deletarTodos(List<Integer> ids) {
+        if (ids != null && !ids.isEmpty()) {
+            repository.deletarTodos(ids);
+        }
+    }
+
+     public void statusSensor(Integer id, String status){
+        var sensor = sensorRepository.findById(id)
+                .orElseThrow(RegistroNaoEncontradoException::new);
+        if(status.equals("ALARME") ){
+            sensor.setStatus(StatusSensor.ALARME);
+            sensor.setDataCadastro(LocalDateTime.now());
+        } else {
+            sensor.setStatus(StatusSensor.NORMAL);
+            sensor.setDataCadastro(LocalDateTime.now());
+        }
+        sensorRepository.save(sensor);
     }
 }
