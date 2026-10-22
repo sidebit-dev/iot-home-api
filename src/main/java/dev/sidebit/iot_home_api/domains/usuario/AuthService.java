@@ -7,6 +7,7 @@ import dev.sidebit.iot_home_api.domains.usuario.dto.AuthResponse;
 import dev.sidebit.iot_home_api.domains.usuario.dto.LoginForm;
 import dev.sidebit.iot_home_api.domains.usuario.dto.UsuarioCadastroForm;
 import dev.sidebit.iot_home_api.domains.usuario.model.UsuarioEntity;
+import dev.sidebit.iot_home_api.infra.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,12 @@ public class AuthService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private JwtService jwtService;
 
-    public AuthResponse cadastrar(UsuarioCadastroForm form){
+    public AuthResponse cadastrar(UsuarioCadastroForm form) {
 
-        if(usuarioRepository.existeByLogin(form.login())){
+        if (usuarioRepository.existeByLogin(form.login())) {
             throw new ValidationException(List.of(new CampoInvalido("login", "Login já cadastrado...")));
         }
 
@@ -39,7 +42,7 @@ public class AuthService {
         return toAuthResponse(usuario);
     }
 
-    public AuthResponse autenticar(LoginForm form){
+    public AuthResponse autenticar(LoginForm form) {
 
         final String mensagem = "Login ou senha inválidos.";
 
@@ -48,18 +51,20 @@ public class AuthService {
 
         boolean senhasBatem = encoder.matches(form.senha(), usuario.getSenha());
 
-        if(!senhasBatem){
+        if (!senhasBatem) {
             new UnauthrizedException(mensagem);
         }
 
         return toAuthResponse(usuario);
     }
 
-    private AuthResponse toAuthResponse(UsuarioEntity usuario){
+    private AuthResponse toAuthResponse(UsuarioEntity usuario) {
+        var token = jwtService.gerarToken(usuario);
+        var expiraEm = jwtService.getExpirationSeconds();
         return new AuthResponse(
-                null,
+                token,
                 "Bearer",
-                0,
+                expiraEm,
                 usuario.getNome()
         );
     }

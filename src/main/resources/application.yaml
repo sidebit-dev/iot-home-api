@@ -21,3 +21,8 @@ spring:
     console:
       enabled: true
       path: /h2-console
+
+app:
+  jwt:
+    secret: c2lkZWJpdCB0ZWNub2xvZ2lhIGVtIGludGVybmV0
+    expiration-seconds: 3600 # equivale a 1 hora
