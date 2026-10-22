@@ -1,5 +1,6 @@
 package dev.sidebit.iot_home_api.domains.usuario;
 
+import dev.sidebit.iot_home_api.common.exceptions.UnauthrizedException;
 import dev.sidebit.iot_home_api.common.exceptions.ValidationException;
 import dev.sidebit.iot_home_api.common.validations.CampoInvalido;
 import dev.sidebit.iot_home_api.domains.usuario.dto.AuthResponse;
@@ -39,7 +40,19 @@ public class AuthService {
     }
 
     public AuthResponse autenticar(LoginForm form){
-        return null;
+
+        final String mensagem = "Login ou senha inválidos.";
+
+        UsuarioEntity usuario = usuarioRepository.findByLogin(form.login())
+                .orElseThrow(() -> new UnauthrizedException(mensagem));
+
+        boolean senhasBatem = encoder.matches(form.senha(), usuario.getSenha());
+
+        if(!senhasBatem){
+            new UnauthrizedException(mensagem);
+        }
+
+        return toAuthResponse(usuario);
     }
 
     private AuthResponse toAuthResponse(UsuarioEntity usuario){
