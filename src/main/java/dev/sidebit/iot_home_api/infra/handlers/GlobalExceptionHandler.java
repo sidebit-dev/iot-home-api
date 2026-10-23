@@ -1,6 +1,7 @@
 package dev.sidebit.iot_home_api.infra.handlers;
 
 import dev.sidebit.iot_home_api.common.exceptions.RegistroNaoEncontradoException;
+import dev.sidebit.iot_home_api.common.exceptions.UnauthorizedException;
 import dev.sidebit.iot_home_api.common.exceptions.ValidationException;
 import dev.sidebit.iot_home_api.common.validations.CampoInvalido;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(e.getStatusCode())
                 .body(Map.of("timestamp", LocalDateTime.now(),
                         "status", e.getStatusCode(),
+                        "error", e.getMessage(),
+                        "message", e.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<?> handleUnauthorizedException(UnauthorizedException e){
+
+        var status = HttpStatus.UNAUTHORIZED;
+
+        return ResponseEntity.status(status)
+                .body(Map.of("timestamp", LocalDateTime.now(),
+                        "status", status.value(),
                         "error", e.getMessage(),
                         "message", e.getMessage()
                 ));

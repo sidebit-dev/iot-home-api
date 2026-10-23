@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Integer> {
 
-    // Seexistir! Optional
+    // Se existir! Optional
     Optional<UsuarioEntity> findByLogin(String login);
 
-    boolean existeByLogin(String login);
+    boolean existsByLogin(String login);
 }

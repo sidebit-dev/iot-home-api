@@ -1,6 +1,6 @@
 package dev.sidebit.iot_home_api.domains.usuario;
 
-import dev.sidebit.iot_home_api.common.exceptions.UnauthrizedException;
+import dev.sidebit.iot_home_api.common.exceptions.UnauthorizedException;
 import dev.sidebit.iot_home_api.common.exceptions.ValidationException;
 import dev.sidebit.iot_home_api.common.validations.CampoInvalido;
 import dev.sidebit.iot_home_api.domains.usuario.dto.AuthResponse;
@@ -9,7 +9,7 @@ import dev.sidebit.iot_home_api.domains.usuario.dto.UsuarioCadastroForm;
 import dev.sidebit.iot_home_api.domains.usuario.model.UsuarioEntity;
 import dev.sidebit.iot_home_api.infra.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password4j.BcryptPassword4jPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class AuthService {
 
-    private final BcryptPassword4jPasswordEncoder encoder = new BcryptPassword4jPasswordEncoder();
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(10);
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -26,7 +26,7 @@ public class AuthService {
 
     public AuthResponse cadastrar(UsuarioCadastroForm form) {
 
-        if (usuarioRepository.existeByLogin(form.login())) {
+        if (usuarioRepository.existsByLogin(form.login())) {
             throw new ValidationException(List.of(new CampoInvalido("login", "Login já cadastrado...")));
         }
 
@@ -34,7 +34,7 @@ public class AuthService {
 
         UsuarioEntity usuario = new UsuarioEntity();
         usuario.setNome(form.nome());
-        usuario.setLogin(form.senha());
+        usuario.setLogin(form.login());
         usuario.setSenha(senhaCriptografada);
 
         usuarioRepository.save(usuario);
@@ -47,12 +47,12 @@ public class AuthService {
         final String mensagem = "Login ou senha inválidos.";
 
         UsuarioEntity usuario = usuarioRepository.findByLogin(form.login())
-                .orElseThrow(() -> new UnauthrizedException(mensagem));
+                .orElseThrow(() -> new UnauthorizedException(mensagem));
 
         boolean senhasBatem = encoder.matches(form.senha(), usuario.getSenha());
 
         if (!senhasBatem) {
-            new UnauthrizedException(mensagem);
+            new UnauthorizedException(mensagem);
         }
 
         return toAuthResponse(usuario);
