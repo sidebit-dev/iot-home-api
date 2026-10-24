@@ -60,4 +60,10 @@ public class JwtService {
                 .withoutPadding()
                 .encodeToString(valor.getBytes(StandardCharsets.UTF_8));
     }
+
+    public boolean isTokenValido(String token) {
+    }
+
+    public UsuarioEntity getUsuario(String token) {
+    }
 }

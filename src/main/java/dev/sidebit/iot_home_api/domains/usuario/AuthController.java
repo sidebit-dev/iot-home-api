@@ -3,6 +3,7 @@ package dev.sidebit.iot_home_api.domains.usuario;
 import dev.sidebit.iot_home_api.domains.usuario.dto.AuthResponse;
 import dev.sidebit.iot_home_api.domains.usuario.dto.LoginForm;
 import dev.sidebit.iot_home_api.domains.usuario.dto.UsuarioCadastroForm;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,4 +27,11 @@ public class AuthController {
     public AuthResponse autenticar(@RequestBody @Valid LoginForm form){
         return service.autenticar(form);
     }
+
+//    @PostMapping("/signin")
+//    public AuthResponse autenticar(@RequestBody @Valid LoginForm form
+//            , HttpServletRequest request){
+//        var usuario = request.getAttribute("usuarioAutenticado");
+//        return service.autenticar(form);
+//    }
 }
