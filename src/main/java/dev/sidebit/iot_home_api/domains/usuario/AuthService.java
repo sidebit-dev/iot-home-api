@@ -49,13 +49,15 @@ public class AuthService {
         UsuarioEntity usuario = usuarioRepository.findByLogin(form.login())
                 .orElseThrow(() -> new UnauthorizedException(mensagem));
 
+
+
         boolean senhasBatem = encoder.matches(form.senha(), usuario.getSenha());
 
         if (!senhasBatem) {
-            new UnauthorizedException(mensagem);
+            throw new UnauthorizedException(mensagem);
         }
+            return toAuthResponse(usuario);
 
-        return toAuthResponse(usuario);
     }
 
     private AuthResponse toAuthResponse(UsuarioEntity usuario) {
