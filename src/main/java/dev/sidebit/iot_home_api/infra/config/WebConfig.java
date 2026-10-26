@@ -31,7 +31,8 @@ public class WebConfig implements WebMvcConfigurer {
                .excludePathPatterns(
                        "/auth/**",
                        "/h2-console/**",
-                       "/error"
+                       "/error",
+                       "/ewent/**"
                );
     }
 }

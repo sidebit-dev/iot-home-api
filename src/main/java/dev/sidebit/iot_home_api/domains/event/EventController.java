@@ -17,7 +17,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("ewent")
+@RequestMapping("events")
 //@CrossOrigin("*")
 public class EventController {
 
@@ -67,7 +67,13 @@ public class EventController {
 
     @DeleteMapping()
     public ResponseEntity<Void> deletarTodos(@RequestBody List<Integer> ids){
-        service.deletarTodos(ids);
+        service.deletarPaginaEventos(ids);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/todos")
+    public ResponseEntity<Void> deletarTodos(){
+        service.deletarTodos();
         return ResponseEntity.noContent().build();
     }
 }

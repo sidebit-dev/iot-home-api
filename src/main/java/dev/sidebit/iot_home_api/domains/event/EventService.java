@@ -64,10 +64,14 @@ public class EventService {
         repository.delete(event);
     }
 
-    public void deletarTodos(List<Integer> ids) {
+    public void deletarPaginaEventos(List<Integer> ids) {
         if (ids != null && !ids.isEmpty()) {
-            repository.deletarTodos(ids);
+            repository.deletarPaginaEventos(ids);
         }
+    }
+
+    public void deletarTodos(){
+        repository.deletarTodos();
     }
 
      public void statusSensor(Integer id, String status){

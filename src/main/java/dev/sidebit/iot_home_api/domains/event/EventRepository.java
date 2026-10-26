@@ -16,5 +16,11 @@ public interface EventRepository extends JpaRepository<EventEntity, Integer> {
     @Transactional
     @Modifying
     @Query("DELETE FROM EventEntity e where e.id in :ids")
-    void  deletarTodos(@Param("ids")List<Integer> ids);
+    void  deletarPaginaEventos(@Param("ids")List<Integer> ids);
+
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM EventEntity")
+    void deletarTodos();
 }
