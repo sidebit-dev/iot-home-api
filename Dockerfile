@@ -16,4 +16,4 @@ COPY --from=build /app/app.jar app.jar
 
 EXPOSE 3333
 
-ENTRYPOINT ["java", ".jar", "/app/app.jar", "--spring.profiles.active=production"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar", "--spring.profiles.active=production"]
