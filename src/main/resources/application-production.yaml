@@ -1,0 +1,20 @@
+server.port: 3333
+spring:
+  application:
+    name: iot-home-api
+  datasource:
+    url: jdbc:postgresql://localhost:5435/iot-home-db
+    driver-class-name: org.postgresql.Driver
+    username: iothome
+    password: iothome123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
